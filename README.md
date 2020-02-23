@@ -1,3 +1,5 @@
+This makes use of the telegram api to generate a telegram bot. Any messages sent to the bot will be replied back with the same messages to the user.
+
 Requirements: 
 
  - Python
