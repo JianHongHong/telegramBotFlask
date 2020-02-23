@@ -17,6 +17,7 @@ def hello():
 @app.route('/{}'.format(TOKEN), methods=['POST'])
 def respond():
     global text
+
     # retrieve the message in JSON and then transform it to Telegram object
     update = telegram.Update.de_json(request.get_json(force=True), bot)
 
@@ -34,16 +35,32 @@ def respond():
 
 @app.route('/setwebhook', methods=['GET', 'POST'])
 def set_webhook():
+    '''
+    Setting up Webhook
+    '''
     s = bot.setWebhook('{URL}/{HOOK}'.format(URL=URL, HOOK=TOKEN))
     if s:
         return "webhook setup ok"
     else:
         return "webhook setup failed"
 
+
+@app.route('/deletewebhook', methods=['GET', 'POST'])
+def deleteWebhook():
+    '''
+    Delete WebHook
+    '''
+    s = bot.deleteWebhook()
+    if s:
+        return "deletewebhook ok"
+    else:
+        return "deletewebhook failed"
+
+
+
 def get_response(msg):
     """
-    Generate a response whenever the bot recieves a message
-
+    Sends back the same response whenever the bot receives a message
     """
     return "Message Received: " + text
 
